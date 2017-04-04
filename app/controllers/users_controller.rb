@@ -5,6 +5,8 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
+    @users = User.order(:name).where("name like ?", "%#{params[:term]}%")
+    render json: @users.map(&:name)
   end
 
   # GET /users/1

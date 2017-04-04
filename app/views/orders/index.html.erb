@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Orders</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Restaurant</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.name %></td>
+        <td><%= order.restaurant %></td>
+        <td><%= order.status %></td>
+        <td><%= image_tag order.avatar.url(:medium) %></td>
+        <td><%= link_to 'Show', user_order_path(order.user,order.id) %></td>
+        <td><%= link_to 'Edit', edit_user_order_path(order.user,order.id) %></td>
+        <td><%= link_to 'Destroy', user_order_path(order.user,order.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Order', new_user_order_path(@user) %>

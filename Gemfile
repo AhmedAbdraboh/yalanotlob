@@ -38,6 +38,9 @@ gem 'devise'
 #images
 gem "paperclip", "~> 5.0.0"
 
+#autocomplete
+gem 'jquery-ui-rails'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
