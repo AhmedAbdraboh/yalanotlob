@@ -1,0 +1,48 @@
+
+  <strong>Friends</strong>
+
+  <%=form_tag "addFriend", :method => "POST" do %>
+  Your Friend Email
+  <%= text_field_tag :email %>
+
+
+  <%= submit_tag %>
+<% end %>
+
+
+<div id="friend_list" >
+  <table>
+
+      <tr>
+        <td>
+
+        </td>
+      </tr>
+
+      <% @user.friends.each do |friend| %>
+        <tr>
+          <td><%= friend.name %></td>
+          <td><%= image_tag friend.avatar.url(:medium) %></td>
+          <td><%= link_to 'Remove friend', "removeFriend/#{friend.id}"  %></td>
+
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+<strong>Pending Friends</strong>
+<% @user.pending_friends.each do |friend| %>
+     <tr>
+       <td><%= friend.name %></td>s
+       <td><%= friend.email %></td>
+
+       <td><%= link_to 'Accept', "acceptFriend/#{friend.id}" %></td>
+       <td><%= link_to 'Decline', "declineFriend/#{friend.id}, :method => :delete" %></td>
+     </tr>
+   <% end %>
+
+
+<br>
+</div>

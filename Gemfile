@@ -1,10 +1,22 @@
 source 'https://rubygems.org'
 
+#add gem
+gem 'has_friendship'
+#sign up using facebook, twitter and linkedin
+gem 'devise'
+gem 'omniauth'
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+gem 'omniauth-linkedin'
+
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
 end
 
+#google sign
+gem "omniauth-google-oauth2"
+gem "figaro"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.2'

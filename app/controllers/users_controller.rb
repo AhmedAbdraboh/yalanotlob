@@ -61,7 +61,60 @@ class UsersController < ApplicationController
     end
   end
 
-  private
+  def remove_friend
+
+	#byebug
+
+  end
+  #1-add friend
+  def addFriend
+	@user = User.find_by_email(params[:email])
+	@friend = current_user
+	@user.friend_request(@friend)
+  @friend.requested_friends
+  end
+
+#   def pendingFriend
+#     friend = User.find_by_email(params[:email])
+#     @friend_request=current_user.friend_request.new(friend: friend)
+#     @sender.friend_request(@friend_request)
+#     @sender.pending_friends
+#   #   if @friend_request.save
+#   #   redirect_back(fallback_location: root_path), status: :created, location: @friend_request
+#   #
+#   # end
+# end
+  def index_friends
+	@user = current_user
+	render :friends
+
+
+  end
+def accept_friends
+  @friend = User.find(params[:id])
+  @user = current_user
+  @user.friend_request(@friend)
+  @user.accept_request(@friend)
+
+redirect_to :search
+
+def decline_friends
+  @user = User.find(params[:id])
+  @friend = current_user
+  @user.decline_request(@friend)
+  redirect_to :search
+
+end
+
+def remove_friends
+  @friend = User.find(params[:id])
+  @user = current_user
+  @user.remove_friend(@friend)
+  redirect_to :search
+
+end
+
+  # private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
@@ -71,4 +124,10 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :password, :email, :avatar)
     end
+
+   
 end
+end 
+
+
+
