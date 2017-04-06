@@ -12,6 +12,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @notifications = Notification.all.reverse
   end
 
   # GET /users/new

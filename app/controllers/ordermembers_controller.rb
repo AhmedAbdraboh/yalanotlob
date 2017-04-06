@@ -1,20 +1,22 @@
 class OrdermembersController < ApplicationController
-  before_action :set_ordermember, only: [:show, :edit, :update, :destroy]
+  before_action :set_ordermember, only: [ :show, :edit, :update, :destroy]
 
   # GET /ordermembers
   # GET /ordermembers.json
   def index
+    @notifications = Notification.all.reverse
     @ordermembers = Ordermember.all
   end
 
   # GET /ordermembers/1
   # GET /ordermembers/1.json
   def show
+
   end
 
   # GET /ordermembers/new
   def new
-    byebug
+    # byebug
     @users = params[:usersToSend]
 
     @user = User.find params[:user_id]
@@ -31,13 +33,22 @@ class OrdermembersController < ApplicationController
   # POST /ordermembers.json
   def create
     # @user=current_user
-    @order=Order.find(params[:order_id])
-    @ordermember = @order.ordermembers.new(ordermember_params)
+    # @order=Order.find(params[:order_id])
+    @ordermember = Ordermember.new(ordermember_params)
+
+    @order=@ordermember.order
+    @ordermembers=@order.ordermembers
+    @duplicatedMember = @ordermembers.select{ |ordermember| ordermember.status == "joined" && ordermember.user.id==@ordermember.user.id && ordermember.order.id==@ordermember.order.id}
     # @ordermember.user_id = @user.id
+    if @duplicatedMember
+      @ordermember.status="duplicated"
+    else
+      @ordermember.status="joined"
+    end
 
     respond_to do |format|
       if @ordermember.save
-        format.html { redirect_to user_order_path(@order.user_id,@order), notice: 'Ordermember was successfully created.' }
+        format.html { redirect_to user_order_path(@ordermember.order.user,@ordermember.order), notice: 'Ordermember was successfully created.' }
         format.json { render :show, status: :created, location: @ordermember }
       else
         format.html { render :new }

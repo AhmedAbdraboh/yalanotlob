@@ -1,0 +1,4 @@
+<li>
+  <%= link_to "#{notification.event}", user_order_path(notification.order.user_id,notification.order) %>
+  <span> <%= notification.created_at.strftime("%d %b. %Y") %></span>
+</li>

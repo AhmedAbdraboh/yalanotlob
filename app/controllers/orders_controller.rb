@@ -1,21 +1,35 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :invitedfriends, :joinedfriends]
 
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
-    @user = User.find params[:user_id]
+
+    @user=current_user
+    # @notifications = @user.notifications.all.reverse
+    @notifications = Notification.all.reverse
+
+    # @userOfOrder = User.find params[:user_id]
+    @orders = @user.orders
 
   end
 
   # GET /orders/1
   # GET /orders/1.json
   def show
+    @user = current_user
+    @ordermember = Ordermember.new
+    @ordermember.order = @order
+    @ordermember.user=@user
+    @currentOrderMembers = @order.ordermembers
+    @invitedMembers = @currentOrderMembers.select{ |ordermember| ordermember.status == "invited"}
+    @joinedMembers = @currentOrderMembers.select{ |ordermember| ordermember.status == "joined"}
+
   end
 
   # GET /orders/new
   def new
+    @notifications = Notification.all.reverse
     @user = current_user
     @order = @user.orders.new
   end
@@ -23,6 +37,11 @@ class OrdersController < ApplicationController
   # GET /orders/1/edit
   def edit
     @user = current_user
+    # byebug
+
+    finishOrder={ name: @order.name, restaurant: @order.restaurant, status: "finished", avatar: @order.avatar}
+    @order.update(finishOrder)
+    redirect_to user_orders_path(@user)
   end
 
   # POST /orders
@@ -47,6 +66,7 @@ class OrdersController < ApplicationController
             newOrderMember={ order_id: @order.id, user_id: @user.id, status: "invited"}
             # puts(newOrderMember)
             @order.ordermembers.create(newOrderMember)
+            Notification.create(event: "#{@order.user.name} invited you to his order", user: @user, order: @order)
             # byebug
           end
         end
@@ -77,16 +97,31 @@ class OrdersController < ApplicationController
   # DELETE /orders/1
   # DELETE /orders/1.json
   def destroy
-    @order.destroy
-    respond_to do |format|
-      format.html { redirect_to orders_url, notice: 'Order was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
+    # @user = current_user
+    # @order.destroy
+    # respond_to do |format|
+    #   format.html { redirect_to user_orders_path(@order), notice: 'Order was successfully destroyed.' }
+    #   format.json { head :no_content }
+    # end
+    @user = current_user
+    # byebug
 
+    finishOrder={ name: @order.name, restaurant: @order.restaurant, status: "cancelled", avatar: @order.avatar}
+    @order.update(finishOrder)
+    redirect_to user_orders_path(@user)
+  end
+  def invitedfriends
+      @currentOrderMembers = @order.ordermembers
+      @ordermembers = @currentOrderMembers.select{ |ordermember| ordermember.status == "invited"}
+  end
+  def joinedfriends
+      @currentOrderMembers = @order.ordermembers
+      @ordermembers = @currentOrderMembers.select{ |ordermember| ordermember.status == "joined"}
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order
+      @notifications = Notification.all.reverse
       @order = Order.find(params[:id])
     end
 

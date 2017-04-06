@@ -38,4 +38,6 @@ jQuery(function() {
 
     // this.submit();
   });
+  // $("#ordermember_user_id").css("type","hidden");
+
 });

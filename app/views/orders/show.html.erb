@@ -1,19 +1,80 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @order.name %>
-</p>
+<h1>Order details</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Person</th>
+      <th>Item</th>
+      <th>amount</th>
+      <th>price</th>
+      <th>comment</th>
+      <th>status</th>
 
-<p>
-  <strong>Restaurant:</strong>
-  <%= @order.restaurant %>
-</p>
+    </tr>
+  </thead>
+<% @order.ordermembers.each do |ordermember| %>
+<% if ordermember.status == "joined" || ordermember.status == "duplicated" %>
 
-<p>
-  <strong>Status:</strong>
-  <%= @order.status %>
-</p>
 
-<%= link_to 'Edit', edit_user_order_path(@order.user,@order) %> |
-<%= link_to 'Back', user_orders_path %>
+
+  <tbody>
+
+      <tr>
+        <td><%= ordermember.user.name %></td>
+        <td><%= ordermember.item %></td>
+        <td><%= ordermember.amount %></td>
+        <td><%= ordermember.price %></td>
+        <td><%= ordermember.comment %></td>
+        <td><%= ordermember.status %></td>
+      </tr>
+      <% end %>
+      <% end %>
+  </tbody>
+</table>
+
+
+
+<% if @order.status=="waiting" %>
+
+
+
+<h2>Add item:</h2>
+<%= form_for(@ordermember) do |f| %>
+<div class="field">
+
+  <%= f.hidden_field :user_id %>
+</div>
+
+<div class="field">
+  <%= f.hidden_field :order_id %>
+</div>
+
+<div class="field">
+  <%= f.hidden_field :status %>
+</div>
+<div class="field">
+  <%= f.label :item %>
+  <%= f.text_field :item %>
+</div>
+<div class="field">
+  <%= f.label :amount %>
+  <%= f.text_field :amount %>
+</div>
+<div class="field">
+  <%= f.label :price %>
+  <%= f.text_field :price %>
+</div>
+<div class="field">
+  <%= f.label :comment %>
+  <%= f.text_field :comment %>
+</div>
+
+<div class="actions">
+  <%= f.submit "add"%>
+</div>
+<% end %>
+<% end %>
+
+<%= link_to "#{@invitedMembers.length} friends invited, click to view", invitedfriends_path(@order) %>
+<br>
+<%= link_to "#{@joinedMembers.length} friends joined, click to view", joinedfriends_path(@order) %>

@@ -1,10 +1,12 @@
-<h1>Ordermembers</h1>
+<h1>invitedfriends</h1>
+
 
 <table>
   <thead>
     <tr>
       <th>User</th>
-      <th>Image</th>
+      <th>Avatar</th>
+
     </tr>
   </thead>
 
@@ -12,10 +14,13 @@
     <% @ordermembers.each do |ordermember| %>
       <tr>
         <td><%= ordermember.user.name %></td>
-        <td><%= ordermember.user.avatar %></td>
-        
+        <td><%= image_tag ordermember.user.avatar.url(:medium) %></td>
+
+      </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to 'Back', ordermembers_path %>
+<br>
+
+<%= link_to 'Back', user_order_path(@order.user,@order) %>
