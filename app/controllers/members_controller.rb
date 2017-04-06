@@ -1,6 +1,6 @@
 class MembersController < ApplicationController
   before_action :set_member, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_notifications
   # GET /members
   # GET /members.json
   def index
@@ -82,5 +82,9 @@ class MembersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def member_params
       params.require(:member).permit(:user_id, :gruop_id)
+    end
+    def set_notifications
+      @user=current_user
+      @notifications = @user.notifications.all.reverse
     end
 end

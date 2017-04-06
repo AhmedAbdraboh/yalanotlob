@@ -1,5 +1,6 @@
 class GruopsController < ApplicationController
   before_action :set_gruop, only: [:show, :edit, :update, :destroy]
+  before_action :set_notifications
   # GET /gruops
   # GET /gruops.json
   def index
@@ -82,5 +83,9 @@ class GruopsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def gruop_params
       params.require(:gruop).permit(:name, :user_id)
+    end
+    def set_notifications
+      @user=current_user
+      @notifications = @user.notifications.all.reverse
     end
 end

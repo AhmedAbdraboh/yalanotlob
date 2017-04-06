@@ -29,10 +29,11 @@
         <li><a href="#">Friends</a></li>
         <li><a href="#">Groups</a></li>
         <li><a href="#">Orders</a></li>
+
+        <% if user_signed_in? %>
         <li style="float:right">
           <%= render "notification_center", notifications: @notifications %>
         </li>
-        <% if user_signed_in? %>
           <li style="float:right">
             <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
           </li>

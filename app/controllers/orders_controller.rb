@@ -1,14 +1,12 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy, :invitedfriends, :joinedfriends]
-
+  before_action :set_notifications
   # GET /orders
   # GET /orders.json
   def index
 
-    @user=current_user
-    # @notifications = @user.notifications.all.reverse
-    @notifications = Notification.all.reverse
 
+    # byebug
     # @userOfOrder = User.find params[:user_id]
     @orders = @user.orders
 
@@ -127,9 +125,10 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-
       params.require(:order).permit(:name, :restaurant, :status, :avatar)
-
-
+    end
+    def set_notifications
+      @user=current_user
+      @notifications = @user.notifications.all.reverse
     end
 end

@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_notifications
   # GET /users
   # GET /users.json
   def index
@@ -79,7 +80,7 @@ class UsersController < ApplicationController
   redirect_to :search
 
 
-	
+
 
   end
   #1-add friend
@@ -141,10 +142,10 @@ end
     def user_params
       params.require(:user).permit(:name, :password, :email, :avatar)
     end
+    def set_notifications
+      @user=current_user
+      @notifications = @user.notifications.all.reverse
+    end
 
-   
 
-end 
-
-
-
+end

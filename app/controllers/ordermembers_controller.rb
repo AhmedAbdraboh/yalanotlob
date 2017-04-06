@@ -1,6 +1,6 @@
 class OrdermembersController < ApplicationController
   before_action :set_ordermember, only: [ :show, :edit, :update, :destroy]
-
+  before_action :set_notifications
   # GET /ordermembers
   # GET /ordermembers.json
   def index
@@ -91,5 +91,9 @@ class OrdermembersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def ordermember_params
       params.require(:ordermember).permit(:user_id, :order_id, :status, :item, :amount, :price, :comment)
+    end
+    def set_notifications
+      @user=current_user
+      @notifications = @user.notifications.all.reverse
     end
 end
