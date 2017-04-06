@@ -62,8 +62,13 @@ class UsersController < ApplicationController
   end
 
   def remove_friend
+  @user = User.find(params[:id])
+  @friend = current_user
+  @user.remove_friend(@friend)
+  redirect_to :search
 
-	#byebug
+
+	
 
   end
   #1-add friend
@@ -97,6 +102,7 @@ def accept_friends
   @user.accept_request(@friend)
 
 redirect_to :search
+end
 
 def decline_friends
   @user = User.find(params[:id])
@@ -126,7 +132,7 @@ end
     end
 
    
-end
+
 end 
 
 
