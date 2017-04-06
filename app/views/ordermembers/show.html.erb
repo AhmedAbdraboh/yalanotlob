@@ -1,0 +1,21 @@
+<h1>Ordermembers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Image</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ordermembers.each do |ordermember| %>
+      <tr>
+        <td><%= ordermember.user.name %></td>
+        <td><%= ordermember.user.avatar %></td>
+        
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Back', ordermembers_path %>

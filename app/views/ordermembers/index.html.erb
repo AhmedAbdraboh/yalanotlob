@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Ordermembers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Order</th>
+      <th>Status</th>
+      <th>Item</th>
+      <th>Amount</th>
+      <th>Price</th>
+      <th>Comment</th>
+
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ordermembers.each do |ordermember| %>
+      <tr>
+        <td><%= ordermember.user.name %></td>
+        <td><%= ordermember.order.id %></td>
+        <td><%= ordermember.status %></td>
+        <td><%= ordermember.item %></td>
+        <td><%= ordermember.amount %></td>
+        <td><%= ordermember.price %></td>
+        <td><%= ordermember.comment %></td>
+        <td><%= link_to 'Show', ordermember_path(ordermember) %></td>
+        <td><%= link_to 'Edit', edit_ordermember_path(ordermember) %></td>
+        <td><%= link_to 'Destroy', ordermember_path(ordermember), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ordermember', new_ordermember_path %>
