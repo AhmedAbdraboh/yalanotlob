@@ -1,9 +1,9 @@
 class GruopsController < ApplicationController
   before_action :set_gruop, only: [:show, :edit, :update, :destroy]
-
   # GET /gruops
   # GET /gruops.json
   def index
+    @notifications = @user.notifications.reverse
     @user = User.find params[:user_id]
     @gruops = @user.gruops.all
   end
@@ -11,22 +11,26 @@ class GruopsController < ApplicationController
   # GET /gruops/1
   # GET /gruops/1.json
   def show
+    @notifications = @user.notifications.reverse
    @users = User.all
   end
 
   # GET /gruops/new
   def new
+    @notifications = @user.notifications.reverse
     @user = User.find params[:user_id]
     @gruop = @user.gruops.new
   end
 
   # GET /gruops/1/edit
   def edit
+    @notifications = @user.notifications.reverse
   end
 
   # POST /gruops
   # POST /gruops.json
   def create
+    @notifications = @user.notifications.reverse
     @user = User.find params[:user_id]
     @gruop = @user.gruops.new(gruop_params)
 

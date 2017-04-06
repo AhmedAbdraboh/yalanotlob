@@ -4,6 +4,7 @@ class MembersController < ApplicationController
   # GET /members
   # GET /members.json
   def index
+    @notifications = @user.notifications.reverse
     @user = User.find params[:user_id]
     @gruop = @user.gruops.find params[:gruop_id]
     @members = @gruop.members.all
@@ -12,10 +13,12 @@ class MembersController < ApplicationController
   # GET /members/1
   # GET /members/1.json
   def show
+    @notifications = @user.notifications.reverse
   end
 
   # GET /members/new
   def new
+    @notifications = @user.notifications.reverse
     @user = User.find params[:user_id]
     @gruop = @user.gruops.find params[:gruop_id]
     @member = @gruop.members.new
@@ -28,6 +31,7 @@ class MembersController < ApplicationController
   # POST /members
   # POST /members.json
   def create
+    @notifications = @user.notifications.reverse
     @user = User.find params[:user_id]
     @gruop = @user.gruops.find params[:gruop_id]
     @member = @gruop.members.new(member_params)

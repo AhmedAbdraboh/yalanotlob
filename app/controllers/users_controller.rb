@@ -1,19 +1,26 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
   # GET /users
   # GET /users.json
   def index
+    #@notifications = @user.notifications.reverse
+    @notifications = Notification.all.reverse
     @users = User.all
+    @users = User.order(:name).where("name like ?", "%#{params[:term]}%")
+    render json: @users.map(&:name)
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    #@notifications = Notification.all.reverse
+    @notifications = Notification.all.reverse
   end
 
   # GET /users/new
   def new
+    #@notifications = @user.notifications.reverse
+    @notifications = Notification.all.reverse
     layout false
     @user = User.new
   end
@@ -25,6 +32,8 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
+    #@notifications = @user.notifications.reverse
+    @notifications = Notification.all.reverse
     layout false
     @user = User.new(user_params)
 
@@ -71,6 +80,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :password, :email)
+      params.require(:user).permit(:name, :password, :email, :avatar)
     end
 end

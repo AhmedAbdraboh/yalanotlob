@@ -1,0 +1,26 @@
+<h1>joinedfriends</h1>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Avatar</th>
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ordermembers.each do |ordermember| %>
+      <tr>
+        <td><%= ordermember.user.name %></td>
+        <td><%= image_tag ordermember.user.avatar.url(:medium) %></td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Back', user_order_path(@order.user,@order) %>
