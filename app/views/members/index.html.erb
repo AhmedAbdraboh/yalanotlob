@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Members</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Gruop</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @members.each do |member| %>
+      <tr>
+        <td><%= member.user %></td>
+        <td><%= member.gruop %></td>
+        <td><%= link_to 'Show', user_gruop_member_path(@user,@gruop,member) %></td>
+        <td><%= link_to 'Edit', edit_user_gruop_member_path(@user,@gruop,member) %></td>
+        <td><%= link_to 'Destroy', user_gruop_member_path(@user,@gruop,member), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Member', new_user_gruop_member_path %>

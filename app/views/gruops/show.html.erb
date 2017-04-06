@@ -1,0 +1,111 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @gruop.name %>
+</p>
+
+<p style="display: none">
+  <strong>User:</strong>
+  <%= @gruop.user %>
+</p>
+
+<%= link_to 'Edit', user_gruop_path(@user,@gruop) %> |
+<%= link_to 'Back', user_gruops_path %>
+
+<h1>Members inside this Group</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th colspan="3">Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+<% @gruop.members.each do |member| %>
+      <tr>
+	<td><%= member.id %></td>
+        <td><%= member.user.name %></td>
+	<td><%= member.user.email %></td>
+  <td><%= link_to 'Remove from group', user_gruop_member_path(member.user,@gruop,member) , method: :delete, data: { confirm: 'Are you sure?' },class:"btn btn-danger" %></td>
+      </tr>
+    <% end %>
+
+</tbody>
+</table>
+<h1>Members outside this Group</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th colspan="3">Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+<% @users.each do |user| %>
+  <% if @gruop.members %>
+      <% @gruop.members.each do  |member| %>
+      <% if member.user_id != user.id %>
+            <tr>
+      	<td><%= user.id %></td>
+              <td><%= user.name %></td>
+              <td><%= user.email %></td>
+              <!-- <td><%= link_to 'Add Member', new_user_gruop_member_path(user,@gruop,@member),class:"btn btn-success" %></td> -->
+      <!--  ========================================================== -->
+
+      <%= form_for([@user,@gruop,Member.new], :method => :post, :class => "linkForm") do |f| %>
+            <%= f.hidden_field :user_id, :value => "#{user.id}" %>
+            <%= f.hidden_field :group_id, :value =>"#{member.gruop_id}" %>
+            <td><%= f.submit 'add to group',class:"btn btn-success" %></td>
+          <% end %>
+      <!--  ========================================================== -->
+            </tr>
+           <%break%>
+          <% end %>
+        <% end %>
+<%end%>
+<% end %>
+  </tbody>
+</table>
+
+<!--
+<h1>Users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th colspan="3">Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+	<td><%= user.id %></td>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= link_to 'Show', user, class:"btn btn-primary" %></td>
+        <td><%= link_to 'Edit', edit_user_path(user),class:"btn btn-warning" %></td>
+	<td><%= link_to 'Add Member', new_user_gruop_member_path(user,@gruop,@member),class:"btn btn-success" %></td>
+        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' },class:"btn btn-danger" %></td>
+      </tr>
+
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New User', new_user_path %> -->

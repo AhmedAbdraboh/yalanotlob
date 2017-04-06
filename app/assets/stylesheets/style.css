@@ -1,0 +1,18 @@
+.register{
+	margin: 40px auto;
+
+}
+body{
+	margin: 0;
+	padding: 0;
+}
+.container ul{
+	list-style: none;
+}
+.container li{
+	display: inline-block;
+}
+.container li a{
+	font-size: 20px;
+	margin: 20px;
+}

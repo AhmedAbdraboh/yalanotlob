@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Gruops</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @gruops.each do |gruop| %>
+      <tr>
+        <td><%= gruop.id %></td>
+        <td><%= gruop.name %></td>
+        <td><%= gruop.user %></td>
+        <%if(@user==current_user)%>
+        <td><%= link_to 'Show', user_gruop_path(gruop.user,gruop) %></td>
+        <td><%= link_to 'Edit', edit_user_gruop_path(@user,gruop) %></td>
+        <td><%= link_to 'Destroy', [@user,gruop], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%end%>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Gruop', new_user_gruop_path %>

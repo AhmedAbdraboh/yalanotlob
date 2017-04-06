@@ -14,6 +14,7 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
+    layout false
     @user = User.new
   end
 
@@ -24,6 +25,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
+    layout false
     @user = User.new(user_params)
 
     respond_to do |format|
