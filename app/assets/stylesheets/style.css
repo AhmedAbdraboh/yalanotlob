@@ -2,9 +2,11 @@
 	margin: 40px auto;
 
 }
-body{
-	margin: 0;
+body,table{
+	margin: auto;
 	padding: 0;
+	text-align: center;
+
 }
 .container ul{
 	list-style: none;
@@ -15,4 +17,7 @@ body{
 .container li a{
 	font-size: 20px;
 	margin: 20px;
+}
+.file{
+	margin: 20px auto;
 }
