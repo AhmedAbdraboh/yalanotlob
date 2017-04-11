@@ -12,8 +12,14 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= f.label :name, "For" %>
+    <select name="order[name]" id="order_name">
+      <option value="breakfast">BreakFast</option>
+      <option value="lunch">Lunch</option>
+
+      <option value="dinner">Dinner</option>
+    </select>
+
   </div>
 
   <div class="field">
@@ -21,10 +27,10 @@
     <%= f.text_field :restaurant %>
   </div>
 
-  
+
   <div class="field">
     <%= f.label :user_id %><br />
-    <%= f.text_field :user_name, data: { autocomplete_source: users_path} %>
+    <%= f.text_field :user_name , data: { autocomplete_source: users_path} %>
   </div>
   <div class="field">
     <ul id="added">

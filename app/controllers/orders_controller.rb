@@ -27,7 +27,7 @@ class OrdersController < ApplicationController
 
   # GET /orders/new
   def new
-    @notifications = Notification.all.reverse
+    # @notifications = Notification.all.reverse
     @user = current_user
     @order = @user.orders.new
   end
