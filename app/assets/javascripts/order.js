@@ -1,4 +1,5 @@
-jQuery(function() {
+$( document ).on('turbolinks:load', function() {
+
    $('#order_user_name').autocomplete({
     source: $('#order_user_name').data('autocomplete-source'),
 
