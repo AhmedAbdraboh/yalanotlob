@@ -2,11 +2,9 @@
 	margin: 40px auto;
 
 }
-body,table{
-	margin: auto;
+.navbar{
+	margin: 0;
 	padding: 0;
-	text-align: center;
-
 }
 .container ul{
 	list-style: none;
@@ -17,6 +15,13 @@ body,table{
 .container li a{
 	font-size: 20px;
 	margin: 20px;
+}
+table{
+	border: 1px solid #ccc;
+}
+tr,td{
+	border: 1px solid #ccc;
+	padding: 10px;
 }
 .file{
 	margin: 20px auto;

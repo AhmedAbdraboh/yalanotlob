@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 #add gem
 gem 'has_friendship'
 #sign up using facebook, twitter and linkedin
-gem 'devise'
+# gem 'devise'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
@@ -52,7 +52,7 @@ gem "paperclip", "~> 5.0.0"
 
 #autocomplete
 gem 'jquery-ui-rails'
-
+gem 'actioncable', '~> 5.0', '>= 5.0.2'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

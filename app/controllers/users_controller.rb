@@ -88,7 +88,7 @@ class UsersController < ApplicationController
 	@user = User.find_by_email(params[:email])
 	@friend = current_user
 	@user.friend_request(@friend)
-  @friend.requested_friends
+  	@friend.requested_friends
   end
 
 #   def pendingFriend
